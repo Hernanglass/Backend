@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1,
+        "title": "Celular",
+        "description": "Iphone 13",
+        "price": 600,
+        "thumbnail": "https://img1.com",
+        "code": "s23hg6",
+        "stock": 34
+    },
+
+
+    {
+        "id": 2,
+        "title": "Celular",
+        "description": "Iphone 14 pro",
+        "price": 800,
+        "thumbnail": "https://img4.com",
+        "code": "s23hg9",
+        "stock": 21
+    },
+
+
+    {
+        "id": 3,
+        "title": "Celular",
+        "description": "Iphone 15 pro",
+        "price": 998,
+        "thumbnail": "https://img8.com",
+        "code": "s23hg2",
+        "stock": 17
+    }
+]

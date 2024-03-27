@@ -1,13 +1,13 @@
-const fs = require('fs')
-
+// const fs = require('fs');
+import fs from 'fs'
 
 class ProductManager{
     #products;
     path;
     static idProducto = 0;
 
-    constructor(){
-        this.path = '.data/productos.json';
+    constructor() {
+        this.path = "./src/data/productos.json";
         this.#products = this.leerProductosInFile();
         
     }
@@ -17,6 +17,15 @@ class ProductManager{
         if(this.#products.length != 0)
         id = this.#products[this.#products.length-1].id +1;
     return id;
+    }
+
+
+    guardarArchivo(){
+        try {
+            fs.writeFileSync(this.path, JSON.stringify(this.#products));
+        } catch (error) {
+            console.log(`ocurrio un error al momento de guardar el archivo`)
+        }
     }
 
     leerProductosInFile(){
@@ -30,13 +39,7 @@ class ProductManager{
             console.log(`ocurrio un error al momento de leer el archivo`)
         }
     }
-    guardarArchivo(){
-        try {
-            fs.writeFileSync(this.path, JSON.stringify(this.#products))
-        } catch (error) {
-            
-        }
-    }
+    
     
     addProduct(title, description, price, thumbnail, code, stock){
         
@@ -65,7 +68,10 @@ class ProductManager{
         return `producto agregado exitosamente!`;
     }
 
-    getProducts(){
+    getProducts(limit = 0 ){
+        limit = Number(limit);
+        if (limit > 0)
+            return this.#products.slicew (0, limit)
         return this.#products;
     }
 
@@ -104,4 +110,6 @@ class ProductManager{
 
 
 
-module.exports = ProductManager;
+// module.exports = ProductManager;
+
+export default ProductManager;
