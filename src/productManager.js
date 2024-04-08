@@ -41,10 +41,10 @@ class ProductManager{
     }
     
     
-    addProduct(title, description, price, thumbnail, code, stock){
+    addProduct(title, description, price, thumbnails=[], code, stock, category, status = true){
         
-        if(!title || !description || !price || !thumbnail || !code || !stock)
-            return `todos los parametros son requeridos [title, description, price, thumbnail, code, stock]`
+        if(!title || !description || !price || !thumbnails || !code || !stock || !category)
+            return `todos los parametros son requeridos [title, description, price, code, stock, category,]`
         
         
         const codeRepetido = this.#products.some(p => p.code ==code);
@@ -58,9 +58,11 @@ class ProductManager{
             title,
             description, 
             price,
-            thumbnail,   
+            thumbnails,   
             code, 
             stock,
+            category,
+            status
         };
         
         this.#products.push(nuevoProducto);
