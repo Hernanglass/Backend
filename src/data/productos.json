@@ -8,8 +8,6 @@
         "code": "s23hg6",
         "stock": 34
     },
-
-
     {
         "id": 2,
         "title": "Celular",
@@ -19,8 +17,6 @@
         "code": "s23hg9",
         "stock": 21
     },
-
-
     {
         "id": 3,
         "title": "Celular",
@@ -29,5 +25,27 @@
         "thumbnail": "https://img8.com",
         "code": "s23hg2",
         "stock": 17
+    },
+    {
+        "id": 4,
+        "title": "titulo1",
+        "description": "description1",
+        "price": 890,
+        "thumbnails": [],
+        "code": "code12345",
+        "stock": 35,
+        "category": "category1",
+        "status": true
+    },
+    {
+        "id": 5,
+        "title": "titulo1",
+        "description": "description1",
+        "price": 890,
+        "thumbnails": [],
+        "code": "code1233345",
+        "stock": 35,
+        "category": "category1",
+        "status": true
     }
 ]

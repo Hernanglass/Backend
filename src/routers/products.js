@@ -24,4 +24,17 @@ router.post('/', (req, res)=>{
     return res.json({result});
 })
 
+router.put('/:pid', (req, res)=>{
+    const {pid} = req.params;
+    const p = new ProductManager();
+    const result = p.updateProduct(Number(pid), req.body);
+    return res.json({result});
+})
+
+router.delete('/:pid', (req, res)=>{
+    const {pid} = req.params;
+    const p = new ProductManager();
+    return res.json({})
+})
+
 export default router;

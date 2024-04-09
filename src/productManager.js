@@ -43,15 +43,17 @@ class ProductManager{
     
     addProduct(title, description, price, thumbnails=[], code, stock, category, status = true){
         
+        let result = 'Ocurrio un error';
+
         if(!title || !description || !price || !thumbnails || !code || !stock || !category)
-            return `todos los parametros son requeridos [title, description, price, code, stock, category,]`
-        
-        
-        const codeRepetido = this.#products.some(p => p.code ==code);
+            result = `todos los parametros son requeridos [title, description, price, code, stock, category,]`;
+        else{
+            const codeRepetido = this.#products.some(p => p.code ==code);
         if (codeRepetido)
-            return `el codigo ${code} ya se encuentra registrado en otro producto`;
-        ProductManager.idProducto = ProductManager.idProducto + 1
-        const id = this.asignarIdProducto();
+            result = `el codigo ${code} ya se encuentra registrado en otro producto`;
+        else{
+            ProductManager.idProducto = ProductManager.idProducto + 1
+            const id = this.asignarIdProducto();
         
         const nuevoProducto = {
             id,
@@ -66,8 +68,16 @@ class ProductManager{
         };
         
         this.#products.push(nuevoProducto);
-        this.guardarArchivo;
-        return `producto agregado exitosamente!`;
+        this.guardarArchivo();
+        result = {
+            msg: 'producto agregado exitosamente!',
+            producto: nuevoProducto
+        };
+        }
+        
+        }
+        
+        return result;
     }
 
     getProducts(limit = 0 ){
@@ -85,17 +95,19 @@ class ProductManager{
         return `Not found`
     }
 
-    updateProduct(id){
+    updateProduct(id, objetUpdate){
         let msg = `el producto con ${id} no existe`;
 
         const index = this.#products.findIndex(p.id === id);
 
         if(index !== -1){
-            const {id, ...rest} = objetUpdate
+            const {id, ...rest} = objetUpdate;
             this.#products[index] = {...this.#products[index], ...rest};
             this.guardarArchivo();
             msg = `Producto actualizado`
         }
+        
+        return msg;
     }
 
     deleteProduct(id){
