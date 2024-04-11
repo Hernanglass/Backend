@@ -88,23 +88,37 @@ class ProductManager{
     }
 
     getProductsById(id){
+        let status = false;
+        let resp = `producto con ${id} no existe`;
+
         const producto = this.#products.find(p => p.id ==id);
-        if(producto)
-            return producto;
+
+        if(producto){
+            status = true;
+            resp= producto
+        }
+    
         else
-        return `Not found`
+        return { status, resp }
     }
 
     updateProduct(id, objetUpdate){
-        let msg = `el producto con ${id} no existe`;
+        let result = `el producto con ${id} no existe`;
 
-        const index = this.#products.findIndex(p.id === id);
+        const index = this.#products.findIndex(p=> p.id === id);
 
         if(index !== -1){
             const {id, ...rest} = objetUpdate;
-            this.#products[index] = {...this.#products[index], ...rest};
+            const propiedadesPermitidas = ['title, description, price, thumbnails, code, stock, category, status'];
+            const propiedadesActualizadas = Object.keys(rest)
+            .filter(propiedad => propiedadesPermitidas.includes(propiedad))
+            .reduce((obj, key) => {
+                obj[key] = rest[key];
+                return obj;
+            }, {});
+            this.#products[index] = {...this.#products[index], ...propiedadesActualizadas};
             this.guardarArchivo();
-            msg = `Producto actualizado`
+            msg = `Producto actualizado`;
         }
         
         return msg;
@@ -112,7 +126,7 @@ class ProductManager{
 
     deleteProduct(id){
         let msg = `el producto con ${id} no existe`;
-        const index = this.#products.findIndex(p.id === id);
+        const index = this.#products.findIndex( p => p.id === id);
         if(index !== -1){
             this.#products = this.#products.filter(p=> p.id !== id);
             this.guardarArchivo();

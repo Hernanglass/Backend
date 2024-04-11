@@ -34,7 +34,8 @@ router.put('/:pid', (req, res)=>{
 router.delete('/:pid', (req, res)=>{
     const {pid} = req.params;
     const p = new ProductManager();
-    return res.json({})
+    const result = p.deleteProduct(Number(pid));
+    return res.json({result})
 })
 
 export default router;
