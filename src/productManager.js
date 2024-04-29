@@ -96,10 +96,12 @@ class ProductManager{
         if(producto){
             status = true;
             resp= producto
+
+            return { status, resp }
         }
     
-        else
-        return { status, resp }
+    
+        
     }
 
     updateProduct(id, objetUpdate){
