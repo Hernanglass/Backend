@@ -15,9 +15,35 @@ socket.on('productos', productos =>{
         <td> ${producto.stock}</td>
         <td> ${producto.category}</td>
         <td> ${producto.status ? 'Activo': 'Desactivo'}</td>
-        <td> ${producto.thumbnails}</td>
+        <td> ${(producto.thumbnails.length > 0) ? producto.thumbnails[0] : 'No hay imagen' }</td>
         `;
     });
 })
 
-{/* <td> ${(producto.thumbnails.length > 0) ? producto.thumbnails[0] : 'No hay imagen' }</td> */}
+
+
+
+const formulario = document.getElementById('producto-form');
+
+formulario.addEventListener('sumbit', function (event){
+    event.preventDefault();
+
+      const titulo = document.getElementById('titulo').value;
+      const descripcion = document.getElementById('descripcion').value;
+      const precio = document.getElementById('precio').value;
+      const codigo = document.getElementById('codigo').value;
+      const stock = document.getElementById('stock').value;
+      const categoria = document.getElementById('categoria').value;
+
+      const producto = {
+        title: titulo,
+        description: descripcion,
+        price: precio,
+        code: codigo,
+        stock: stock,
+        category: categoria
+      }
+
+      socket.emit('agregarProducto', producto);
+      formulario.requestFullscreen();
+});
