@@ -25,9 +25,10 @@ socket.on('productos', productos =>{
 
 const formulario = document.getElementById('producto-form');
 
-formulario.addEventListener('sumbit', function (event){
+formulario.addEventListener('submit', function (event){
     event.preventDefault();
 
+      // Obtener valores del formulario
       const titulo = document.getElementById('titulo').value;
       const descripcion = document.getElementById('descripcion').value;
       const precio = document.getElementById('precio').value;
@@ -35,6 +36,7 @@ formulario.addEventListener('sumbit', function (event){
       const stock = document.getElementById('stock').value;
       const categoria = document.getElementById('categoria').value;
 
+      // Enviar el nuevo producto al servidor a traves de socket
       const producto = {
         title: titulo,
         description: descripcion,
@@ -43,7 +45,9 @@ formulario.addEventListener('sumbit', function (event){
         stock: stock,
         category: categoria
       }
-
+      
       socket.emit('agregarProducto', producto);
-      formulario.requestFullscreen();
+
+      // Limpiar el formulario despues de enviar
+      formulario.reset();
 });
