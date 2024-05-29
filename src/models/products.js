@@ -19,6 +19,6 @@ ProductoSchema.set('toJSON',{
                 delete ret.__v;
                 return ret;
         }
-})
+});
 
 export const productModel = model(nameCollection, ProductoSchema);

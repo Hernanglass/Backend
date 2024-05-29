@@ -48,9 +48,10 @@ export const addProduct= async (req=request, res=response)=> {
 
 export const updateProduct= async (req=request, res=response)=> {
     try {
-        const {pid} = req.params;
+        const pid = req.params.pid.trim();
+        // const {pid} = req.params;
         const {_id, ...rest} = req.body;
-        const producto = await productModel.findByIdAndUpdate(pid, {rest}, {new: true});
+        const producto = await productModel.findByIdAndUpdate(pid, {...rest}, {new: true});
 
         if(producto)
             return res.json({msg: 'producto actualizado', producto});

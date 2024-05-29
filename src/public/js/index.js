@@ -7,7 +7,7 @@ socket.on('productos', productos =>{
         const row = tbody.insertRow();
 
         row.innerHTML = `
-        <td> ${producto.id}</td>
+        <td> ${producto._id}</td>
         <td> ${producto.title}</td>
         <td> ${producto.description}</td>
         <td> ${producto.price}</td>
@@ -15,7 +15,7 @@ socket.on('productos', productos =>{
         <td> ${producto.stock}</td>
         <td> ${producto.category}</td>
         <td> ${producto.status ? 'Activo': 'Desactivo'}</td>
-        <td> ${(producto.thumbnails.length > 0) ? producto.thumbnails[0] : 'No hay imagen' }</td>
+        <td> ${producto.thumbnails && producto.thumbnails.length > 0 ? producto.thumbnails[0] : 'No hay imagen' }</td>
         `;
     });
 })
