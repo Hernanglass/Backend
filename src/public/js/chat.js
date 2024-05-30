@@ -59,7 +59,7 @@ Swal.fire({
 
 chatBox.addEventListener('keyup', evt => {
     if (evt.key === 'Enter') {
-        if (chatBox.value.trim().lenght > 0) {
+        if (chatBox.value.trim().length > 0) {
             const message = chatBox.value;
             socket.emit('message', { user, message });
             chatBox.value = '';
