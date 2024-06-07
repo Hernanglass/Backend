@@ -8,8 +8,8 @@ import views from './routers/views.js';
 import __dirname from "./utils.js";
 
 import { dbConnection } from "./database/config.js";
-import { productModel } from "./models/products.js";
 import { MessageModel } from "./models/messages.js";
+import { addProductService, getProductsService } from "./services/products.js";
 
 
 
@@ -45,11 +45,13 @@ const io = new Server(expressServer);
 io.on('connection', async(socket) =>{
 
     //Productos
-    const productos= await productModel.find();
-    socket.emit('productos', productos);
+    const {payload} = await getProductsService({});
+    const productos = payload;
+    socket.emit('productos', payload);
 
     socket.on('agregarProducto', async (producto)=>{
-        const newProduct = await productModel.create({...producto});
+        // const newProduct = await productModel.create({...producto});
+        const newProduct = await addProductService({...producto}) ;
         if(newProduct){
             productos.push(newProduct)
         }
