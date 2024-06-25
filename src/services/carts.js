@@ -2,7 +2,7 @@ import { CartModel } from '../models/carts.js';
 
 export const getCartByIdService =async (cid) =>{
     try {
-        return await CartModel.findById(cid);
+        return await CartModel.findById(cid).populate('products.id');
 
     } catch (error) {
         console.log('getCartById -> ', error);
@@ -40,6 +40,39 @@ export const addProductInCartService =async (cid, pid) =>{
         return carrito;
     } catch (error) {
         console.log('addProductInCartService -> ', error);
+        throw error;
+    }
+}
+
+export const deleteProductsInCartService =async (cid, pid) => {
+    try {
+       return await CartModel.findByIdAndUpdate(cid, {$pull:{'products':{id:pid}}}, {new:true});
+    } catch (error) {
+        console.log('DeleteProductInCartService -> ', error);
+        throw error;
+    }
+}
+
+
+export const updateProductsInCartService =async (cid, pid, quantity) => {
+    try {
+       return await CartModel.findOneAndUpdate(
+        { _id:cid, 'products.id':pid },
+        { $set: {'products.$.quantity':quantity} },
+        { new: true}
+       );
+    } catch (error) {
+        console.log('UpdateProductInCartService -> ', error);
+        throw error;
+    }
+}
+
+
+export const deleteCartService =async (cid) => {
+    try {
+       return await CartModel.findByIdAndUpdate(cid, {$set:{'products': [] }}, {new:true});
+    } catch (error) {
+        console.log('DeleteProductInCartService -> ', error);
         throw error;
     }
 }

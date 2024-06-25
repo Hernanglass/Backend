@@ -1,0 +1,69 @@
+
+<div>
+    <h3>Lista de productos:</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Codigo</th>
+                <th>Stock</th>
+                <th>Categoria</th>
+                <th>Estado</th>
+                <th>Imagen</th>
+                <th>Agregar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each result.payload}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.code}}</td>
+                <td>{{this.stock}}</td>
+                <td>{{this.category}}</td>
+                <td>
+                    {{#if this.status}}
+                    Activo
+                    {{else}}
+                    Desactivado
+                    {{/if}}
+                </td>
+                <td>
+                    <button class="cart-button" onclick="addToCart('{{this._id}}')"><i class="fas fa-shopping-cart cart-icon"></i></button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span>Limite por pagina: {{result.limit}}</span><br>
+        {{#if result.query}}
+        <span>Filtrado por: {{result.query}}</span><br>
+        {{/if}}
+
+        {{#if result.hasPrevPage}}
+        <a href="?page={{result.prevPage}}&limit={{result.limit}}{{#if result.query}}&query={{result.query}}{{/if}}">Página anterior</a>
+        {{/if}}
+    </div>
+
+    <div>
+        <i class="fas fa-shopping-cart cart-icon"></i>
+        <span id="cart-count">Tu carrito: 0 productos</span>
+    </div>
+
+    <script>
+        function addToCart(productId) {
+            console.log('Producto agregado al carrito:', productId);
+
+            // Ejemplo de cómo actualizar el contador del carrito
+            var cartCount = document.getElementById('cart-count');
+            var currentCount = parseInt(cartCount.innerText.split(' ')[2]);
+            cartCount.innerText = 'Tu carrito: ' + (currentCount + 1) + ' productos';
+        }
+    </script>
+</div>

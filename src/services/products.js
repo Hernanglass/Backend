@@ -39,8 +39,7 @@ export const getProductsService= async ({limit = 10, page = 1, sort, query})=> {
         payload: productos,
     }
 
-
-
+   
     } catch (error) {
         console.log('getProductsService -> ', error);
         throw error;
